@@ -4,11 +4,22 @@ Let's study Symfony!
 
 http://symfony.com/doc/current/book/index.html の劣化版
 
+## ちょっとまって
+
+***PHP The Right Way. は読んだ？ ***
+
+PHPの最近のベストプラクティスだから読んでおいてね
+
+http://ja.phptherightway.com/
+
+いまから説明することと重複している内容もありますが、あとで読んでおいてください。
+
 
 ## 目次
 
 - Composer によるパッケージ管理
 - PSR PHPのコーディング
+- Symfony とは
 - Symfony のインストール
 - parameters.yml, config.yml
 - Create your First Page
@@ -67,15 +78,52 @@ PHPの外部ライブラリの管理ツール。rubyでいうBundler, nodeでい
 
 PSR-0, 1, 2, 3, 4, 7 とありますが、 普段の開発ではとりあえず 0, 1, 2 が重要。守ろう。
 
-日本語がよければ　https://github.com/maosanhioro/fig-standards/tree/master/translation あたり参照
+日本語がよければ　https://github.com/maosanhioro/fig-standards/tree/master/translation あたりを参照
+
+## Symfony とは
+
+### Symfonyのバージョン
+
+- Symfony1.x系とSymfony2.x系は完全に別物、検索するときは特に注意
+- Symfony2と3は同系の予定
+- Symfonyはリリース・メンテナンススケジュールがしっかりしていて、LTS（Long Term Support）もある
+  - http://symfony.com/doc/current/contributing/community/releases.html#schedule
+
+### Doctrineのバージョン
+
+- DoctrineはSymfony標準のORM(Object Relational Mapper)、詳細は後述。
+- Doctrineも1.xと2.xがあるので、検索するときは注意
+- Symfony 1.x はDoctrine 1.x を、 Symfony 2.x は Doctrine 2.x
+- Doctrine 1.x は Active Record パターン、 Doctrine 2.x は Data Mapper パターン。
+  - 参考 http://otndnld.oracle.co.jp/columns/arai-semi/data_access/2/
+
 
 
 ## Symfony のインストール
 
-
+- Symfony本体も外部ライブラリなのでComposerでインストールする
+- 既存プロジェクトに参加するときは不要
+  - プロジェクトを git clone して、外部ライブラリのインストールを行えば、Symfony自体も入る
+- 今回は詳細は割愛
+  - http://symfony.com/doc/current/book/installation.html
 
 
 ## parameters.yml, config.yml
+
+設定ファイル
+
+- parameters.yml
+  - 環境によって変わるパラメータを記載
+  - DB接続情報とか
+  - ファイルを保存するPATHとか
+  - parameters.yml.dist というファイルをgitにコミットしておく
+  - composer install 時に parameters.yml.dist から parameters.yml へ値をコピーして作成
+- config.yml
+  - プロジェクト全体の設定を記載する
+  - Environmentごとに設定を変更できる
+    - prodの場合は config_prod.yml、dev の場合は config_dev.yml を読み込む
+    - config.yml + config_[env].yml ファイルが読み込まれる
+    - 正確には config_prod.yml や config_dev.yml が読み込まれ、その中で config.yml をインポートしている
 
 ## Create your First Page
 
