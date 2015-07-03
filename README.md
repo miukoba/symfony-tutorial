@@ -6,36 +6,20 @@ http://symfony.com/doc/current/book/index.html の劣化版
 
 ## ちょっとまって
 
-***PHP The Right Way. は読んだ？ ***
+### PHP The Right Way
 
 PHPの最近のベストプラクティスだから読んでおいてね
 
 http://ja.phptherightway.com/
 
-いまから説明することと重複している内容もありますが、あとで読んでおいてください。
+※ できたばかりの頃は量も少なくて超重要なことがまとまっていたけれど、充実しすぎて量もかなり多くなってしまいました。いまから説明することと重複している内容もありますが、あとで読んでおいてください。
 
+### Symfony Best Practices
 
-## 目次
-
-- Composer によるパッケージ管理
-- PSR PHPのコーディング
-- Symfony とは
-- Symfony のインストール
-- parameters.yml, config.yml
-- Create your First Page
-- Controller と Action
-- Routing
-- Twig テンプレートエンジン
-- Configureing Symfony and Environments
-- The Bundle System
-- データベースとDoctrine、Entity、Repository
-- app/consle コマンド系 cache:clear, assets:install
-- FormType と handleRequest
-- Validation
-- Security
-- Translations
-- Service Container
-
+- http://symfony.com/doc/current/best_practices/index.html
+- 日本語がいいなら http://docs.symfony.gr.jp/symfony2/best_practices/index.html
+- チュートリアルではない、はじめに読むものではない
+  - 慣れてきたら復習や勉強を兼ねて読んでみて
 
 ## Composer によるパッケージ管理
 
@@ -125,21 +109,122 @@ PSR-0, 1, 2, 3, 4, 7 とありますが、 普段の開発ではとりあえず 
     - config.yml + config_[env].yml ファイルが読み込まれる
     - 正確には config_prod.yml や config_dev.yml が読み込まれ、その中で config.yml をインポートしている
 
+## Bundleとは
+
+> A bundle is similar to a plugin in other software, but even better. The key difference is that everything is a bundle in Symfony, including both the core framework functionality and the code written for your application.
+
+- プラグインのような、パッケージのような、なにか
+- 実際に自分たちが書くコードもBundleを作成してその中に書きます
+- SYmfony Best Practice には 「アプリケーションのBundleは AppBundle 1つにしましょう」 と書いてある
+  - 使いまわせそうなライブラリにできるのであれば別でBundleを作ってもいい
+  - Bundleは再利用できる単位であるべき
+
+
 ## Create your First Page
+
+- app/console generate:controller
+  - ControllerとViewが作られる
+- コマンドについては後述
+
+```
+$ app/console generate:controller
+
+  Welcome to the Symfony2 controller generator
+
+Every page, and even sections of a page, are rendered by a controller.
+This command helps you generate them easily.
+
+First, you need to give the controller name you want to generate.
+You must use the shortcut notation like AcmeBlogBundle:Post
+
+Controller name: AppBundle:Post
+
+Determine the format to use for the routing.
+
+Routing format (php, xml, yml, annotation) [annotation]:
+
+Determine the format to use for templating.
+
+Template format (twig, php) [twig]:
+
+Instead of starting with a blank controller, you can add some actions now. An action
+is a PHP function or method that executes, for example, when a given route is matched.
+Actions should be suffixed by Action.
+
+
+New action name (press <return> to stop adding actions): index
+ Name "index" is not suffixed by Action
+New action name (press <return> to stop adding actions): indexAction
+Action route [/index]: /
+Templatename (optional) [AppBundle:Post:index.html.twig]:
+
+New action name (press <return> to stop adding actions):
+
+  Summary before generation
+
+
+You are going to generate a "AppBundle:Post" controller
+using the "annotation" format for the routing and the "twig" format
+for templating
+Do you confirm generation [yes]?
+
+
+  Controller generation
+
+
+Generating the bundle code: OK
+
+
+  You can now start using the generated code!
+```
+
+- Controller
+  - PostController.php
+- view
+  - index.html.twig
+
 
 ## Controller と Action
 
+
+
 ## Routing
+
+- routing.yml
+- @Route アノテーション
 
 ## Twig テンプレートエンジン
 
-## Configureing Symfony and Environments
-
-## The Bundle System
+- http://twig.sensiolabs.org/
 
 ## データベースとDoctrine、Entity、Repository
 
-## app/consle コマンド系 cache:clear, assets:install
+誤解を承知でざっくり言うと
+
+- Entity
+  - リレーショナル・データベースの1テーブルと対になるPHPのクラス、POPO（Plain Old PHP Object）
+- Repository
+  - DBに対する基本的な操作のインターフェイス
+  - 簡単な検索は予め用意されている find findBy findOneBy findAll が使える
+
+## app/consle コマンド
+
+app/console で実行すれば、利用可能なコマンドが列挙される
+
+使いそうなところ
+
+    app/console router:debug
+
+    app/console cache:clear
+    app/console cache:clear --env=dev
+    app/console cache:clear --env=prod
+    app/console cache:clear --env=dev --no-warmup
+
+    app/console assets:install
+
+    app/console generate:doctrine:entity
+    app/console generate:controller
+    app/console generate:doctrine:crud
 
 ## FormType と handleRequest
 
