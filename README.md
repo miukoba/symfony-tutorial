@@ -197,6 +197,47 @@ Generating the bundle code: OK
 
 - http://twig.sensiolabs.org/
 
+{# でコメントアウト
+
+```
+{# ここがコメントです #}
+```
+
+{{ で変数の内容を出力
+
+```
+{{ var }}
+```
+
+{% が制御文
+
+```
+{% for user in users %}
+    {{ user.name }}
+{% else %}
+    空だよ
+{% endfor %}
+```
+
+
+継承とブロック
+
+extendsはphpのextendsのイメージ、blockがメソッドのオーバーライドのイメージ
+
+```
+{% extends "layout.html" %}
+```
+
+```
+<title>{% block title %}{% endblock %}</title>
+
+{% block body %}{% endblock %}
+```
+
+```
+{% include 'header.html' %}
+```
+
 ## データベースとDoctrine、Entity、Repository
 
 誤解を承知でざっくり言うと
